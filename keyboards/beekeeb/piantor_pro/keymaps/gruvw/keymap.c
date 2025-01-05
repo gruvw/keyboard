@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define NU_LAY LT(1, KC_TAB)
 #define SP_LAY LT(2, KC_SCLN)
 
-// === keymap ===
+// === keymap - 36 keys ===
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 0: letters, spacing, modifiers
@@ -57,15 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = LAYOUT_split_3x6_3(
         KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_PIPE, KC_RCBR, KC_LCBR, KC_LPRN, KC_RPRN, KC_NO,
         KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, KC_NO,
-        KC_NO,   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       CW_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
                                             KC_NO,   KC_NO,   _______,     _______, KC_NO,   KC_NO
     ),
 
-    // layer 3: mouse, cursor control
+    // layer 3: mouse, cursor control, sound, brightness, media control
     [3] = LAYOUT_split_3x6_3(
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-                                            _______, KC_NO,   KC_NO,       KC_NO,   KC_NO,   KC_NO
+        KC_NO,   KC_VOLU, KC_HOME, MS_UP,   KC_END,  KC_BRIU,                       KC_INS,  XXXXXXX, MS_WHLU, XXXXXXX, KC_PGUP, KC_NO,
+        KC_NO,   KC_VOLD, MS_LEFT, MS_DOWN, MS_RGHT, KC_BRID,                       KC_DEL,  MS_WHLL, MS_WHLD, MS_WHLR, KC_PGDN, KC_NO,
+        KC_NO,   KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
+                                            _______, KC_NO,   KC_NO,       MS_BTN3, MS_BTN1, MS_BTN2
     )
 };

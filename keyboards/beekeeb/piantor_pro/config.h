@@ -15,3 +15,12 @@
 
 #define SPLIT_HAND_PIN GP17
 #define SPLIT_HAND_PIN_LOW_IS_LEFT
+
+// === custom settings ===
+
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MOVE_DELTA 6
+#define MOUSEKEY_TIME_TO_MAX 40
+
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 60
