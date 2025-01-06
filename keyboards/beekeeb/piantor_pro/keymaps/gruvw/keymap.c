@@ -8,23 +8,54 @@
 
 enum custom_keycodes {
     MO_LAY = SAFE_RANGE, // LT(3, OSM(MOD_LSFT))
+    MA_LAY, // LT(4, OSM(MOD_LCTL))
+    MC_WEB, // https://
+    MC_MAIL, // gruvw.dev@gmail.com
+    MC_SIGN, // Lucas Jung (@gruvw)\nhttps://gruvw.com
 };
 
-static uint16_t os_lsft_timer;
+static uint16_t mo_lay_timer;
+static uint16_t ma_lay_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO_LAY:
             if (record->event.pressed) {
-                os_lsft_timer = timer_read();
+                mo_lay_timer = timer_read();
                 layer_on(3);
             } else {
                 layer_off(3);
-                if (timer_elapsed(os_lsft_timer) < TAPPING_TERM) {
+                if (timer_elapsed(mo_lay_timer) < TAPPING_TERM) {
                     set_oneshot_mods(MOD_LSFT);
                 }
             }
             return false;
+        case MA_LAY:
+            if (record->event.pressed) {
+                ma_lay_timer = timer_read();
+                layer_on(4);
+            } else {
+                layer_off(4);
+                if (timer_elapsed(ma_lay_timer) < TAPPING_TERM) {
+                    set_oneshot_mods(MOD_LCTL);
+                }
+            }
+            return false;
+        case MC_WEB:
+            if (record->event.pressed) {
+                SEND_STRING("https://");
+            }
+            break;
+        case MC_MAIL:
+            if (record->event.pressed) {
+                SEND_STRING("gruvw.dev@gmail.com");
+            }
+            break;
+        case MC_SIGN:
+            if (record->event.pressed) {
+                SEND_STRING("Lucas Jung (@gruvw)\nhttps://gruvw.com");
+            }
+            break;
     }
     return true;
 }
@@ -32,17 +63,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // === special keys ===
 
 #define NU_LAY LT(1, KC_TAB)
-#define SP_LAY LT(2, KC_SCLN)
+#define SP_LAY LT(2, KC_ENT)
+
+// === unicode keys ===
+
+#define KC_DEG UC(0x00B0) // °
+#define KC_MID UC(0x00B7) // ·
 
 // === keymap - 36 keys ===
+
+// TODO Combine one shot keys
+// TODO Cancel one shot keys
+// TODO make sure repeatable shortcuts are easaly repeatable (hold keys), home row mods ?
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 0: letters, spacing, modifiers
     [0] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_RALT, KC_LGUI, KC_LALT, KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
+        KC_NO,   KC_LALT, KC_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
         KC_NO,   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                          KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_NO,
         KC_NO,   KC_ESC,  KC_Q,    KC_J,    KC_K,    KC_X,                          KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_NO,
-                                            MO_LAY,  KC_SPC,  NU_LAY,      KC_ENT,  KC_BSPC, KC_LCTL
+                                            MO_LAY,  KC_SPC,  NU_LAY,      SP_LAY,  KC_BSPC, MA_LAY
     ),
 
     // layer 1: numbers, special character
@@ -50,15 +90,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_PLUS, KC_DQUO, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_UNDS, KC_ASTR, KC_MINS, KC_QUOT, KC_NO,
-                                            KC_NO,   KC_NO,   _______,     SP_LAY,  KC_DOT,  KC_EQL
+                                            KC_NO,   KC_NO,   _______,     KC_SCLN, KC_EQL,  KC_RALT
     ),
 
-    // layer 2:
+    // layer 2: special chars, function keys
     [2] = LAYOUT_split_3x6_3(
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_PIPE, KC_RCBR, KC_LCBR, KC_LPRN, KC_RPRN, KC_NO,
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, KC_NO,
-        KC_NO,   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       CW_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-                                            KC_NO,   KC_NO,   _______,     _______, KC_NO,   KC_NO
+        KC_NO,   KC_PSCR, XXXXXXX, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, KC_DEG,  KC_MID,  XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,                         KC_PIPE, KC_LPRN, KC_LBRC, KC_LCBR, KC_LABK, KC_NO,
+        KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,                         XXXXXXX, KC_RPRN, KC_RBRC, KC_RCBR, KC_RABK, KC_NO,
+                                            KC_NO,   KC_NO,   KC_NO,       _______, KC_NO,   KC_NO
     ),
 
     // layer 3: mouse, cursor control, sound, brightness, media control
@@ -67,5 +107,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_VOLD, MS_LEFT, MS_DOWN, MS_RGHT, KC_BRID,                       KC_DEL,  MS_WHLL, MS_WHLD, MS_WHLR, KC_PGDN, KC_NO,
         KC_NO,   KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                             _______, KC_NO,   KC_NO,       MS_BTN3, MS_BTN1, MS_BTN2
-    )
+    ),
+
+    // layer 4: macros, pre-defined macros, keyboard boot, caps word
+    [4] = LAYOUT_split_3x6_3(
+        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, DM_REC1, DM_REC2, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   XXXXXXX, MC_SIGN, MC_MAIL, MC_WEB,  XXXXXXX,                       XXXXXXX, DM_PLY1, DM_PLY2, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, KC_NO,
+                                            CW_TOGG, KC_NO,   KC_NO,       KC_NO,   KC_NO,   _______
+    ),
 };
