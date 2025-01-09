@@ -26,7 +26,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 layer_off(3);
                 if (timer_elapsed(mo_lay_timer) < TAPPING_TERM) {
-                    set_oneshot_mods(MOD_LSFT);
+                    set_oneshot_mods(MOD_LCTL);
                 }
             }
             return false;
@@ -37,7 +37,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 layer_off(4);
                 if (timer_elapsed(ma_lay_timer) < TAPPING_TERM) {
-                    set_oneshot_mods(MOD_LCTL);
+                    set_oneshot_mods(MOD_LSFT);
                 }
             }
             return false;
@@ -65,6 +65,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define NU_LAY LT(1, KC_TAB)
 #define SP_LAY LT(2, KC_ENT)
 
+#define OS_LALT OSM(MOD_LALT)
+#define OS_LGUI OSM(MOD_LGUI)
+
 // === unicode keys ===
 
 #define KC_DEG UC(0x00B0) // °
@@ -79,7 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 0: letters, spacing, modifiers
     [0] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_LALT, KC_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
+        KC_NO,   OS_LALT, OS_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
         KC_NO,   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                          KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_NO,
         KC_NO,   KC_ESC,  KC_Q,    KC_J,    KC_K,    KC_X,                          KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_NO,
                                             MO_LAY,  KC_SPC,  NU_LAY,      SP_LAY,  KC_BSPC, MA_LAY
