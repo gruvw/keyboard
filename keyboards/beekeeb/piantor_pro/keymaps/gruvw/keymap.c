@@ -60,18 +60,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
 // === special keys ===
 
-#define NU_LAY LT(1, KC_TAB)
-#define SP_LAY LT(2, KC_ENT)
+#define SP_LAY LT(1, KC_ENT)
+#define NU_LAY LT(2, KC_TAB)
 
 #define OS_LALT OSM(MOD_LALT)
 #define OS_LGUI OSM(MOD_LGUI)
 
 // === unicode keys ===
 
-#define KC_DEG UC(0x00B0) // °
-#define KC_MID UC(0x00B7) // ·
+#define UC_DEG UC(0x00B0) // °
+#define UC_MID UC(0x00B7) // ·
 
 // === keymap - 36 keys ===
 
@@ -92,16 +109,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_split_3x6_3(
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_PLUS, KC_DQUO, KC_NO,
-        KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_UNDS, KC_ASTR, KC_MINS, KC_QUOT, KC_NO,
-                                            KC_NO,   KC_NO,   _______,     KC_SCLN, KC_EQL,  KC_RALT
+        KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_QUOT, KC_NO,
+                                            KC_RALT, KC_EQL,  KC_SCLN,     _______, KC_NO,   KC_NO
     ),
 
-    // layer 2: special chars, function keys
+    // layer 2: special characters, function keys
     [2] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_PSCR, XXXXXXX, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, KC_DEG,  KC_MID,  XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   KC_PSCR, XXXXXXX, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, UC_DEG,  UC_MID,  XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,                         KC_PIPE, KC_LPRN, KC_LBRC, KC_LCBR, KC_LABK, KC_NO,
         KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,                         XXXXXXX, KC_RPRN, KC_RBRC, KC_RCBR, KC_RABK, KC_NO,
-                                            KC_NO,   KC_NO,   KC_NO,       _______, KC_NO,   KC_NO
+                                            KC_NO,   KC_NO,   _______,     KC_NO,   KC_NO,   KC_NO
     ),
 
     // layer 3: mouse, cursor control, sound, brightness, media control
@@ -117,6 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, DM_REC1, DM_REC2, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   XXXXXXX, MC_SIGN, MC_MAIL, MC_WEB,  XXXXXXX,                       XXXXXXX, DM_PLY1, DM_PLY2, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, KC_NO,
-                                            CW_TOGG, KC_NO,   KC_NO,       KC_NO,   KC_NO,   _______
+                                            KC_NO,   CW_TOGG, KC_NO,       KC_NO,   KC_NO,   _______
     ),
 };
