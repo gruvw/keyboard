@@ -75,7 +75,6 @@ bool caps_word_press_user(uint16_t keycode) {
 
 // === keymap - 36 keys ===
 
-// TODO set bootloader name `gruvw-keyboard`
 // TODO Fast typing lay(osm) with key (within typing term), needs study of common chains
 // - ctrl+tap
 // - ctrl+shift+tab
@@ -93,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 1: numbers, special character
     [1] = LAYOUT_split_3x6_3(
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
-        KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_PLUS, KC_DQUO, KC_NO,
-        KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_QUOT, KC_NO,
-                                            KC_RALT, KC_EQL,  KC_SCLN,     _______, KC_NO,   KC_NO
+        KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_QUOT, KC_DQUO, KC_NO,
+        KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_NO,
+                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, KC_NO,   KC_NO
     ),
 
     // layer 2: special characters, function keys, caps word
