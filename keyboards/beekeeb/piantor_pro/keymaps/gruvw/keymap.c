@@ -2,10 +2,13 @@
 
 // === special keys ===
 
-#define NU_LAY LT(1, KC_ENT)
-#define SP_LAY LT(2, KC_TAB)
-#define MO_LAY LT(3, MOD_LCTL) // LT(3, OSM(MOD_LCTL))
-#define MA_LAY LT(4, MOD_LSFT) // LT(4, OSM(MOD_LSFT))
+#define TY_LAY DF(0) // typing layer
+#define NU_LAY LT(1, KC_ENT) // numbers layer
+#define SP_LAY LT(2, KC_TAB) // special layer
+#define MO_LAY LT(3, MOD_LCTL) // mouse layer - LT(3, OSM(MOD_LCTL))
+#define MA_LAY LT(4, MOD_LSFT) // macros layer - LT(4, OSM(MOD_LSFT))
+#define GM_LAY DF(5) // gaming (movement) layer
+#define GO_LAY LT(6, KC_F) // gaming (movement) layer
 
 #define OS_LALT OSM(MOD_LALT)
 #define OS_LGUI OSM(MOD_LGUI)
@@ -94,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_QUOT, KC_DQUO, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_NO,
-                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, KC_NO,   KC_NO
+                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, KC_NO,   GM_LAY
     ),
 
     // layer 2: special characters, function keys, caps word
@@ -119,5 +122,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   XXXXXXX, MA_SIGN, MA_MAIL, MA_WEB,  XXXXXXX,                       XXXXXXX, DM_PLY1, DM_PLY2, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, KC_NO,
                                             KC_NO,   KC_NO,   KC_NO,       KC_NO,   KC_NO,   _______
+    ),
+
+    // layer 5: gaming (movement)
+    [5] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_ESC,  KC_R,    KC_W,    KC_E,    KC_G,                          KC_U,    KC_K,    KC_N,    KC_P,    KC_J,    KC_NO,
+        KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_T,                          KC_L,    KC_I,    KC_M,    KC_H,    KC_O,    KC_NO,
+        KC_NO,   KC_LCTL, KC_LALT, KC_B,    KC_X,    KC_C,                          KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_NO,
+                                            KC_TAB,  KC_SPC,  GO_LAY,      KC_P0,   KC_P1,   KC_P2
+    ),
+
+    // layer 6: gaming (others)
+    [6] = LAYOUT_split_3x6_3(
+        KC_NO,   KC_ENT,  KC_Q,    KC_Y,    KC_V,    KC_Z,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+                                            TY_LAY,  KC_NO,   _______,     XXXXXXX, XXXXXXX, XXXXXXX
     ),
 };
