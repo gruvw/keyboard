@@ -17,7 +17,8 @@
 
 enum custom_keycodes {
     MA_WEB = SAFE_RANGE, // https://
-    MA_MAIL, // gruvw.dev@gmail.com
+    MA_MAIG, // gruvw.dev@gmail.com
+    MA_MAII, // luclecool@icloud.com
     MA_SIGN, // Lucas Jung (@gruvw)\nhttps://gruvw.com
 };
 
@@ -38,9 +39,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("https://");
             }
             break;
-        case MA_MAIL:
+        case MA_MAIG:
             if (record->event.pressed) {
                 SEND_STRING("gruvw.dev@gmail.com");
+            }
+            break;
+        case MA_MAII:
+            if (record->event.pressed) {
+                SEND_STRING("luclecool@icloud.com");
             }
             break;
         case MA_SIGN:
@@ -84,7 +90,7 @@ bool caps_word_press_user(uint16_t keycode) {
 // - gui+ctrl+h/j/k/l
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // layer 0: letters, spacing, modifiers
+    // layer 0 (sticky): letters, spacing, modifiers
     [0] = LAYOUT_split_3x6_3(
         KC_NO,   OS_LALT, OS_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
         KC_NO,   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                          KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_NO,
@@ -100,31 +106,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_RALT, KC_SCLN,  KC_EQL,     _______, KC_NO,   GM_LAY
     ),
 
-    // layer 2: special characters, function keys, caps word
+    // layer 2: special characters, function keys, caps word, input control
     [2] = LAYOUT_split_3x6_3(
         KC_NO,   KC_PSCR, XXXXXXX, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, UC_DEG,  UC_MID,  XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,                         KC_PIPE, KC_LPRN, KC_LBRC, KC_LCBR, KC_LABK, KC_NO,
         KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,                         XXXXXXX, KC_RPRN, KC_RBRC, KC_RCBR, KC_RABK, KC_NO,
-                                            KC_NO,   KC_NO,   _______,     KC_NO,   KC_NO,   CW_TOGG
+                                            KC_NO,   KC_NO,   _______,     KC_INS,  KC_DEL,  CW_TOGG
     ),
 
-    // layer 3: mouse, cursor control, sound, brightness, media control
+    // layer 3: mouse, modifiers, sound, brightness
     [3] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_VOLU, KC_HOME, MS_UP,   KC_END,  KC_BRIU,                       KC_INS,  XXXXXXX, MS_WHLU, XXXXXXX, KC_PGUP, KC_NO,
-        KC_NO,   KC_VOLD, MS_LEFT, MS_DOWN, MS_RGHT, KC_BRID,                       KC_DEL,  MS_WHLL, MS_WHLD, MS_WHLR, KC_PGDN, KC_NO,
-        KC_NO,   KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
+        KC_NO,   XXXXXXX, XXXXXXX, MS_UP,   XXXXXXX, KC_VOLU,                       KC_BRIU, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT, KC_VOLD,                       KC_BRID, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, KC_NO,
+        KC_NO,   KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_MUTE,                       XXXXXXX, KC_LCTL, KC_LSFT, KC_LALT, KC_LGUI, KC_NO,
                                             _______, KC_NO,   KC_NO,       MS_BTN3, MS_BTN1, MS_BTN2
     ),
 
-    // layer 4: macros, predefined macros, keyboard boot
+    // layer 4: custom macros, predefined macros, cursor control, media control, keyboard boot
     [4] = LAYOUT_split_3x6_3(
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, DM_REC1, DM_REC2, XXXXXXX, XXXXXXX, KC_NO,
-        KC_NO,   XXXXXXX, MA_SIGN, MA_MAIL, MA_WEB,  XXXXXXX,                       XXXXXXX, DM_PLY1, DM_PLY2, XXXXXXX, XXXXXXX, KC_NO,
-        KC_NO,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, KC_NO,
-                                            KC_NO,   KC_NO,   KC_NO,       KC_NO,   KC_NO,   _______
+        KC_NO,   XXXXXXX, XXXXXXX, KC_UP,   DM_PLY1, DM_REC1,                       KC_PGUP, MA_WEB,  MA_MAII, MA_MAIG, MA_SIGN, KC_NO,
+        KC_NO,   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,                        KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, DM_PLY2, DM_REC2,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+                                            KC_NO,   KC_NO,   KC_NO,       QK_BOOT, KC_NO,   _______
     ),
 
-    // layer 5: gaming (movement)
+    // layer 5 (sticky): gaming (movement)
     [5] = LAYOUT_split_3x6_3(
         KC_NO,   KC_ESC,  KC_R,    KC_W,    KC_E,    KC_G,                          KC_U,    KC_K,    KC_N,    KC_P,    KC_J,    KC_NO,
         KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_T,                          KC_L,    KC_I,    KC_M,    KC_H,    KC_O,    KC_NO,
