@@ -84,10 +84,7 @@ bool caps_word_press_user(uint16_t keycode) {
 
 // === keymap - 36 keys ===
 
-// TODO Fast typing lay(osm) with key (within typing term), needs study of common chains
-// - ctrl+tap
-// - ctrl+shift+tab
-// - gui+ctrl+h/j/k/l
+// TODO midi layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 0 (sticky): letters, spacing, modifiers
