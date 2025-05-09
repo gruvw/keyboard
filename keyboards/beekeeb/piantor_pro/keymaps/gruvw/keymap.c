@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   MI_Cs,   MI_Ds,   KC_NO,   MI_Fs,   KC_NO,                         KC_NO,   MI_Gs,   MI_As,   KC_NO,   MI_Cs1,  KC_NO,
         KC_NO,   MI_C,    MI_D,    MI_E,    MI_F,    KC_NO,                         KC_NO,   MI_G,    MI_A,    MI_B,    MI_C1,   KC_NO,
         KC_NO,   KC_NO,   MI_Db,   MI_Eb,   KC_NO,   KC_NO,                         KC_NO,   MI_Gb,   MI_Ab,   MI_Bb,   KC_NO,   KC_NO,
-                                            MI_AOFF, MI_SOST, MT_LAY,      MI_OCTD, MI_SUST, MI_OCTU
+                                            MI_SOST, MI_SUST, MT_LAY,      MI_OCTD, MI_AOFF, MI_OCTU
     ),
 
     // layer 8: midi (others)
