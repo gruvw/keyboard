@@ -2,13 +2,15 @@
 
 // === special keys ===
 
-#define TY_LAY DF(0) // typing layer
+#define TY_LAY DF(0) // typing layer sticky
 #define NU_LAY LT(1, KC_ENT) // numbers layer
 #define SP_LAY LT(2, KC_TAB) // special layer
 #define MO_LAY LT(3, MOD_LCTL) // mouse layer - LT(3, OSM(MOD_LCTL))
 #define MA_LAY LT(4, MOD_LSFT) // macros layer - LT(4, OSM(MOD_LSFT))
-#define GM_LAY DF(5) // gaming (movement) layer
-#define GO_LAY LT(6, KC_F) // gaming (movement) layer
+#define GM_LAY DF(5) // gaming (movement) layer sticky
+#define GO_LAY LT(6, KC_F) // gaming (others) layer
+#define MI_LAY DF(7) // midi (notes) layer sticky
+#define MT_LAY LT(8, XXXXXXX) // midi (others) layer
 
 #define OS_LALT OSM(MOD_LALT)
 #define OS_LGUI OSM(MOD_LGUI)
@@ -84,8 +86,6 @@ bool caps_word_press_user(uint16_t keycode) {
 
 // === keymap - 36 keys ===
 
-// TODO midi layer
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // layer 0 (sticky): letters, spacing, modifiers
     [0] = LAYOUT_split_3x6_3(
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_QUOT, KC_DQUO, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_NO,
-                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, KC_NO,   GM_LAY
+                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, MI_LAY,  GM_LAY
     ),
 
     // layer 2: special characters, function keys, caps word, input control
@@ -140,6 +140,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_ENT,  KC_Q,    KC_Y,    KC_V,    KC_Z,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+                                            TY_LAY,  KC_NO,   _______,     XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+
+    // layer 7: midi (notes)
+    [7] = LAYOUT_split_3x6_3(
+        KC_NO,   MI_Cs,   MI_Ds,   KC_NO,   MI_Fs,   KC_NO,                         KC_NO,   MI_Gs,   MI_As,   KC_NO,   MI_Cs1,  KC_NO,
+        KC_NO,   MI_C,    MI_D,    MI_E,    MI_F,    KC_NO,                         KC_NO,   MI_G,    MI_A,    MI_B,    MI_C1,   KC_NO,
+        KC_NO,   KC_NO,   MI_Db,   MI_Eb,   KC_NO,   KC_NO,                         KC_NO,   MI_Gb,   MI_Ab,   MI_Bb,   KC_NO,   KC_NO,
+                                            MI_AOFF, MI_SOST, MT_LAY,      MI_OCTD, MI_SUST, MI_OCTU
+    ),
+
+    // layer 8: midi (others)
+    [8] = LAYOUT_split_3x6_3(
+        KC_NO,   MI_CHNU, MI_OCTU, MI_TRSU, MI_VELU, MI_ON,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   MI_CH1,  MI_OC2,  MI_TR0,  MI_VL8,  MI_TOGG,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   MI_CHND, MI_OCTD, MI_TRSD, MI_VELD, MI_OFF,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
                                             TY_LAY,  KC_NO,   _______,     XXXXXXX, XXXXXXX, XXXXXXX
     ),
 };
