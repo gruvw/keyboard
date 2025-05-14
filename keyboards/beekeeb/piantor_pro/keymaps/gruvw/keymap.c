@@ -62,12 +62,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
-        // Keycodes that continue Caps Word, with shift applied.
+        // keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
-            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            add_weak_mods(MOD_BIT(KC_LSFT));  // apply shift to next key.
             return true;
 
-        // Keycodes that continue Caps Word, without shifting.
+        // keycodes that continue Caps Word, without shifting.
         case KC_1 ... KC_0:
         case KC_MINS:
         case KC_BSPC:
@@ -75,8 +75,22 @@ bool caps_word_press_user(uint16_t keycode) {
             return true;
 
         default:
-            return false;  // Deactivate Caps Word.
+            return false; // deactivate Caps Word.
     }
+}
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    bool shifted = (mods & MOD_MASK_SHIFT);
+    switch (keycode) {
+        case KC_TAB:
+            if (shifted) {
+                return KC_TAB;
+            } else {
+                return S(KC_TAB);
+            }
+    }
+
+    return KC_TRNS;
 }
 
 // === unicode keys ===
@@ -87,9 +101,9 @@ bool caps_word_press_user(uint16_t keycode) {
 // === keymap - 36 keys ===
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // layer 0 (sticky): letters, spacing, modifiers
+    // layer 0 (sticky): letters, spacing, modifiers, repeat
     [0] = LAYOUT_split_3x6_3(
-        KC_NO,   OS_LALT, OS_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
+        KC_NO,   QK_REP,  OS_LGUI, KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
         KC_NO,   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                          KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_NO,
         KC_NO,   KC_ESC,  KC_Q,    KC_J,    KC_K,    KC_X,                          KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_NO,
                                             MO_LAY,  KC_SPC,  SP_LAY,      NU_LAY,  KC_BSPC, MA_LAY
@@ -103,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_RALT, KC_SCLN,  KC_EQL,     _______, MI_LAY,  GM_LAY
     ),
 
-    // layer 2: special characters, function keys, caps word, input control
+    // layer 2: special characters, function keys, caps word, unicode input control, unicode keys, alt repeat
     [2] = LAYOUT_split_3x6_3(
-        KC_NO,   KC_PSCR, XXXXXXX, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, UC_DEG,  UC_MID,  XXXXXXX, XXXXXXX, KC_NO,
-        KC_NO,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,                         KC_PIPE, KC_LPRN, KC_LBRC, KC_LCBR, KC_LABK, KC_NO,
+        KC_NO,   QK_AREP, KC_PSCR, KC_F10,  KC_F11,  KC_F12,                        UC_NEXT, UC_DEG,  UC_MID,  XXXXXXX, XXXXXXX, KC_NO,
+        KC_NO,   OS_LALT, KC_F1,   KC_F2,   KC_F3,   KC_F4,                         KC_PIPE, KC_LPRN, KC_LBRC, KC_LCBR, KC_LABK, KC_NO,
         KC_NO,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,                         XXXXXXX, KC_RPRN, KC_RBRC, KC_RCBR, KC_RABK, KC_NO,
                                             KC_NO,   KC_NO,   _______,     KC_INS,  KC_DEL,  CW_TOGG
     ),
