@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_GRV,  KC_TILD, KC_DLR,  KC_HASH, KC_AT,                         KC_PERC, KC_EXLM, KC_QUES, KC_AMPR, KC_CIRC, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          KC_SLSH, KC_COMM, KC_COLN, KC_QUOT, KC_DQUO, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          KC_BSLS, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_NO,
-                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, MI_LAY,  GM_LAY
+                                            KC_RALT, KC_SCLN,  KC_EQL,     _______, MI_LAY,  QK_BOOT
     ),
 
     // layer 2: special characters, function keys, caps word, unicode input control, unicode keys, repeat
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   XXXXXXX, XXXXXXX, KC_UP,   DM_PLY1, DM_REC1,                       KC_PGUP, MA_WEB,  MA_MAII, MA_MAIG, MA_SIGN, KC_NO,
         KC_NO,   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,                        KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, DM_PLY2, DM_REC2,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-                                            KC_NO,   KC_NO,   KC_NO,       QK_BOOT, KC_NO,   _______
+                                            KC_NO,   KC_NO,   KC_NO,       GM_LAY,  KC_NO,   _______
     ),
 
     // layer 5 (sticky): gaming (movement)
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_ESC,  KC_R,    KC_W,    KC_E,    KC_G,                          KC_U,    KC_K,    KC_N,    KC_P,    KC_J,    KC_NO,
         KC_NO,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_T,                          KC_L,    KC_I,    KC_M,    KC_H,    KC_O,    KC_NO,
         KC_NO,   KC_LCTL, KC_LALT, KC_B,    KC_X,    KC_C,                          KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_NO,
-                                            KC_TAB,  KC_SPC,  GO_LAY,      KC_P0,   KC_P1,   KC_P2
+                                            GO_LAY,  KC_SPC,  KC_TAB,      KC_P0,   KC_P1,   KC_P2
     ),
 
     // layer 6: gaming (others)
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_ENT,  KC_Q,    KC_Y,    KC_V,    KC_Z,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,    KC_4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_NO,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-                                            TY_LAY,  KC_NO,   _______,     XXXXXXX, XXXXXXX, XXXXXXX
+                                            _______, KC_NO,   TY_LAY,      XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     // layer 7: midi (notes)
